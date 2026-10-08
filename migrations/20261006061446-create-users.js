@@ -20,7 +20,7 @@ module.exports = {
                 type: Sequelize.BIGINT,
                 allowNull: false,
                 references: {
-                    model: 'roles',
+                    model:'admin_roles',
                     key: 'id'
                 },
                 onUpdate: 'CASCADE',
@@ -104,18 +104,37 @@ module.exports = {
             },
         });
 
-        await queryInterface.addIndex('users',["role_id"]);
-        await queryInterface.addIndex('users',['organization_id']);
-        await queryInterface.addIndex("users", ["status"]);
-        await queryInterface.addIndex("users", ["is_deleted"]);
-        await queryInterface.addIndex("users", ["status", "is_deleted"]);
-        await queryInterface.addIndex("users", [
-        "role_id",
-        "status",
-        "is_deleted",
-        ]);
-        await queryInterface.addIndex("users", ["created_by"]);
-        await queryInterface.addIndex("users", ["updated_by"]);
+        await queryInterface.addIndex('users', ['organization_id'], {
+            name: 'idx_users_organization_id'
+        });
+
+        await queryInterface.addIndex('users', ['status'], {
+            name: 'idx_users_status'
+        });
+
+        await queryInterface.addIndex('users', ['is_deleted'], {
+            name: 'idx_users_is_deleted'
+        });
+
+        await queryInterface.addIndex('users', ['status', 'is_deleted'], {
+            name: 'idx_users_status_is_deleted'
+        });
+
+        await queryInterface.addIndex('users', [
+            'role_id',
+            'status',
+            'is_deleted'
+        ], {
+            name: 'idx_users_role_status_deleted'
+        });
+
+        await queryInterface.addIndex('users', ['created_by'], {
+            name: 'idx_users_created_by'
+        });
+
+        await queryInterface.addIndex('users', ['updated_by'], {
+            name: 'idx_users_updated_by'
+        });
     },
 
     async down (queryInterface, Sequelize) {
