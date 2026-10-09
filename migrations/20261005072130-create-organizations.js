@@ -1,4 +1,5 @@
 'use strict';
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -10,24 +11,24 @@ module.exports = {
             type: Sequelize.INTEGER
         },
         organisation_code: {
-            type: DataTypes.STRING(30),
+            type: Sequelize.STRING(30),
             allowNull: false,
             unique: true,
         },
 
         organisation_name: {
-            type: DataTypes.STRING(150),
+            type: Sequelize.STRING(150),
             allowNull: false,
         },
 
         base_currency: {
-            type: DataTypes.CHAR(3),
+            type: Sequelize.CHAR(3),
             allowNull: false,
             defaultValue: "GBP",
         },
 
         is_active: {
-            type: DataTypes.BOOLEAN,
+            type: Sequelize.BOOLEAN,
             allowNull: false,
             defaultValue: true,
         },
