@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "root",
-    "database": "len_xp_prod",
+    "database": "len_xp_prod_sequelize",
     "host": "127.0.0.1",
     "port": 5432,
     "dialect": "postgres"
