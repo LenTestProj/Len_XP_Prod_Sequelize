@@ -6,7 +6,7 @@ module.exports = {
     async up(queryInterface, Sequelize) {
         await queryInterface.createTable('finished_product_details', {
             item_id: {
-                type: Sequelize.BIGINT.UNSIGNED,
+                type: Sequelize.BIGINT,
                 allowNull: false,
                 primaryKey: true,
                 references: {
@@ -28,7 +28,7 @@ module.exports = {
             },
 
             net_content_uom_id: {
-                type: Sequelize.BIGINT.UNSIGNED,
+                type: Sequelize.BIGINT,
                 allowNull: true,
                 references: {
                     model: 'units',

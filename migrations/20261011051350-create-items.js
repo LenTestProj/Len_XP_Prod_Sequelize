@@ -6,13 +6,13 @@ module.exports = {
     async up(queryInterface, Sequelize) {
         await queryInterface.createTable('items', {
             id: {
-                type: Sequelize.BIGINT.UNSIGNED,
+                type: Sequelize.BIGINT,
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
             },
 
-            organisation_id: {
+            organization_id: {
                 type: Sequelize.BIGINT,
                 allowNull: false,
                 references: {
@@ -77,7 +77,7 @@ module.exports = {
             },
 
             shelf_life_days: {
-                type: Sequelize.FLOAT.UNSIGNED,
+                type: Sequelize.FLOAT,
                 allowNull: true,
             },
 
@@ -153,14 +153,14 @@ module.exports = {
 
         await queryInterface.addIndex(
             'items',
-            ['organisation_id', 'item_code'],
-            { name: 'items_organisation_item_code_idx' }
+            ['organization_id', 'item_code'],
+            { name: 'items_organization_item_code_idx' }
         );
 
         await queryInterface.addIndex(
             'items',
-            ['organisation_id', 'item_type', 'is_active'],
-            { name: 'items_organisation_type_active_idx' }
+            ['organization_id', 'item_type', 'is_active'],
+            { name: 'items_organization_type_active_idx' }
         );
 
         await queryInterface.addIndex(

@@ -5,7 +5,60 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class Units extends Model {
         static associate(models) {
-        // Define associations here
+            Units.hasMany(models.Items, {
+                foreignKey: 'base_uom_id',
+                as: 'items',
+            });
+
+            Units.hasMany(models.FinishedProductDetails, {
+                foreignKey: 'net_content_uom_id',
+                as: 'finishedProductDetails',
+            });
+
+            Units.hasMany(models.PackagingMaterialDetails, {
+                foreignKey: 'capacity_uom_id',
+                as: 'packagingMaterials',
+            });
+
+            Units.hasMany(models.FormulationVersions, {
+                foreignKey: 'output_uom_id',
+                as: 'formulationVersions',
+            });
+
+            Units.hasMany(models.FormulationLines, {
+                foreignKey: 'required_uom_id',
+                as: 'formulationLinesByUom',
+            });
+
+            Units.hasMany(models.PurchaseReceiptLines, {
+                foreignKey: 'purchase_uom_id',
+                as: 'purchaseReceiptLinesByPurchaseUom',
+            });
+
+            Units.hasMany(models.PurchaseReceiptLines, {
+                foreignKey: 'base_uom_id',
+                as: 'purchaseReceiptLinesByBaseUom',
+            });
+
+            Units.hasMany(models.ItemUomConversion, {
+                foreignKey: 'from_uom_id',
+                as: 'fromUomConversions',
+            });
+
+            Units.hasMany(models.ItemUomConversion, {
+                foreignKey: 'to_uom_id',
+                as: 'toUomConversions',
+            });
+
+            Units.hasMany(models.InventoryLots, {
+                foreignKey: 'base_uom_id',
+                as: 'inventoryLots',
+            });
+
+            Units.hasMany(models.Materials, {
+                foreignKey: 'unitId',
+                as: 'materials',
+            });
         }
     }
 

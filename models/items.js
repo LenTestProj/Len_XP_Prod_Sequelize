@@ -6,19 +6,54 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class Items extends Model {
         static associate(models) {
-            Items.belongsTo(models.Organisations, {
-                foreignKey: 'organisation_id',
-                as: 'organisation',
+            Items.belongsTo(models.Organizations, {
+                foreignKey: 'organization_id',
+                as: 'organization',
             });
 
             Items.belongsTo(models.Units, {
                 foreignKey: 'base_uom_id',
-                as: 'baseUnit',
+                as: 'baseUom',
             });
 
             Items.belongsTo(models.Taxes, {
                 foreignKey: 'tax_id',
                 as: 'tax',
+            });
+
+            Items.hasOne(models.PackagingMaterialDetails, {
+                foreignKey: 'item_id',
+                as: 'packagingMaterialDetails',
+            });
+
+            Items.hasOne(models.FinishedProductDetails, {
+                foreignKey: 'item_id',
+                as: 'finishedProductDetails',
+            });
+
+            Items.hasMany(models.ItemUomConversion, {
+                foreignKey: 'item_id',
+                as: 'uomConversions',
+            });
+
+            Items.hasMany(models.Formulations, {
+                foreignKey: 'finished_product_item_id',
+                as: 'formulations',
+            });
+
+            Items.hasMany(models.FormulationLines, {
+                foreignKey: 'component_item_id',
+                as: 'formulationLines',
+            });
+
+            Items.hasMany(models.PurchaseReceiptLines, {
+                foreignKey: 'item_id',
+                as: 'purchaseReceiptLines',
+            });
+
+            Items.hasMany(models.InventoryLots, {
+                foreignKey: 'item_id',
+                as: 'inventoryLots',
             });
         }
     }
@@ -26,17 +61,17 @@ module.exports = (sequelize, DataTypes) => {
     Items.init(
         {
             id: {
-                type: DataTypes.BIGINT.UNSIGNED,
+                type: DataTypes.BIGINT,
                 autoIncrement: true,
                 primaryKey: true,
                 allowNull: false,
             },
 
-            organisation_id: {
-                type: DataTypes.BIGINT.UNSIGNED,
+            organization_id: {
+                type: DataTypes.BIGINT,
                 allowNull: false,
                 references: {
-                    model: 'organisations',
+                    model: 'organizations',
                     key: 'id',
                 },
             },
@@ -61,7 +96,7 @@ module.exports = (sequelize, DataTypes) => {
             },
 
             base_uom_id: {
-                type: DataTypes.BIGINT.UNSIGNED,
+                type: DataTypes.BIGINT,
                 allowNull: false,
                 references: {
                     model: 'units',
@@ -70,7 +105,7 @@ module.exports = (sequelize, DataTypes) => {
             },
 
             tax_id: {
-                type: DataTypes.BIGINT.UNSIGNED,
+                type: DataTypes.BIGINT,
                 allowNull: true,
                 references: {
                     model: 'taxes',
@@ -89,7 +124,7 @@ module.exports = (sequelize, DataTypes) => {
             },
 
             shelf_life_days: {
-                type: DataTypes.FLOAT.UNSIGNED,
+                type: DataTypes.FLOAT,
                 allowNull: true,
             },
 
@@ -153,11 +188,11 @@ module.exports = (sequelize, DataTypes) => {
 
             indexes: [
                 {
-                    fields: ['organisation_id', 'item_code'],
+                    fields: ['organization_id', 'item_code'],
                 },
                 {
                     fields: [
-                        'organisation_id',
+                        'organization_id',
                         'item_type',
                         'is_active',
                     ],

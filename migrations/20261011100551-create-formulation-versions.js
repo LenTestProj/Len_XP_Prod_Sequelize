@@ -83,6 +83,12 @@ module.exports = {
             approved_by: {
                 type: Sequelize.BIGINT,
                 allowNull: true,
+                references: {
+                    model: 'users',
+                    key: 'id',
+                },
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL',
             },
 
             created_at: {

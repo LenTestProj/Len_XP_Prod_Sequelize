@@ -19,7 +19,7 @@ module.exports = {
                     key: 'id',
                 },
                 onUpdate: 'CASCADE',
-                onDelete: 'RESTRICT',
+                onDelete: 'CASCADE',
             },
 
             line_no: {

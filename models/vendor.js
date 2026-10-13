@@ -3,21 +3,21 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-    class Vendor extends Model {
+    class Vendors extends Model {
         static associate(models) {
-            Vendor.belongsTo(models.Organizations, {
-                foreignKey: 'organiation_id',
+            Vendors.belongsTo(models.Organizations, {
+                foreignKey: 'organization_id',
                 as: 'organization',
             });
 
-            Vendor.hasMany(models.PurchaseReceipts, {
+            Vendors.hasMany(models.PurchaseReceipts, {
                 foreignKey: 'vendor_id',
                 as: 'purchaseReceipts',
             });
         }
     }
 
-    Vendor.init(
+    Vendors.init(
         {
             id: {
                 type: DataTypes.BIGINT,
@@ -63,7 +63,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         {
             sequelize,
-            modelName: 'Vendor',
+            modelName: 'Vendors',
             tableName: 'vendors',
 
             timestamps: true,
@@ -87,5 +87,5 @@ module.exports = (sequelize, DataTypes) => {
         }
     );
 
-    return Vendor;
+    return Vendors;
 };

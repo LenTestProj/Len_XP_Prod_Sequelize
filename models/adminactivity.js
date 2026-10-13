@@ -10,7 +10,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      AdminActivity.belongsTo(models.Users, {
+        foreignKey: 'user_id',
+        as: 'user',
+      });
     }
   }
   AdminActivity.init({
@@ -36,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'AdminActivity',
     tableName:"admin_activity",
     timestamps: true,
-    underscore: true,
+    underscored: true,
     indexes:[
         {
             fields:["module_name"],

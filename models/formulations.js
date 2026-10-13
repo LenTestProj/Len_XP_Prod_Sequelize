@@ -5,9 +5,9 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class Formulations extends Model {
         static associate(models) {
-            Formulations.belongsTo(models.Organisations, {
-                foreignKey: 'organisation_id',
-                as: 'organisation',
+            Formulations.belongsTo(models.Organizations, {
+                foreignKey: 'organization_id',
+                as: 'organization',
             });
 
             Formulations.belongsTo(models.Items, {
@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
             Formulations.hasMany(models.FormulationVersions, {
                 foreignKey: 'formulation_id',
                 as: 'versions',
+                onDelete: 'CASCADE',
             });
         }
     }
@@ -31,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true,
             },
 
-            organisation_id: {
+            organization_id: {
                 type: DataTypes.BIGINT,
                 allowNull: false,
                 references: {
@@ -85,10 +86,10 @@ module.exports = (sequelize, DataTypes) => {
             indexes: [
                 {
                     unique: true,
-                    fields: ['organisation_id', 'formulation_code'],
+                    fields: ['organization_id', 'formulation_code'],
                 },
                 {
-                    fields: ['organisation_id'],
+                    fields: ['organization_id'],
                 },
                 {
                     fields: ['finished_product_item_id'],

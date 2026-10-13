@@ -11,7 +11,7 @@ module.exports = {
                 primaryKey: true,
             },
 
-            organisation_id: {
+            organization_id: {
                 type: Sequelize.BIGINT,
                 allowNull: false,
                 references: {
@@ -74,7 +74,7 @@ module.exports = {
 
         await queryInterface.addIndex(
         'formulations',
-        ['organisation_id', 'formulation_code'],
+        ['organization_id', 'formulation_code'],
         {
             unique: true,
             name: 'formulations_org_code_unique',
@@ -83,9 +83,9 @@ module.exports = {
 
         await queryInterface.addIndex(
         'formulations',
-        ['organisation_id'],
+        ['organization_id'],
         {
-            name: 'formulations_organisation_id_idx',
+            name: 'formulations_organization_id_idx',
         }
         );
 

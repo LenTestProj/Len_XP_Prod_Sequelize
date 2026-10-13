@@ -7,12 +7,17 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             FormulationLines.belongsTo(models.FormulationVersions, {
                 foreignKey: 'formulation_version_id',
-                as: 'formulationVersion',
+                as: 'version',
             });
 
             FormulationLines.belongsTo(models.Items, {
                 foreignKey: 'component_item_id',
                 as: 'componentItem',
+            });
+
+            FormulationLines.belongsTo(models.Units, {
+                foreignKey: 'required_uom_id',
+                as: 'requiredUom',
             });
         }
     }
@@ -39,6 +44,15 @@ module.exports = (sequelize, DataTypes) => {
             component_item_id: {
                 type: DataTypes.BIGINT,
                 allowNull: false,
+            },
+
+            required_uom_id: {
+                type: DataTypes.BIGINT,
+                allowNull: true,
+                references: {
+                    model: 'units',
+                    key: 'id',
+                },
             },
         },
         {

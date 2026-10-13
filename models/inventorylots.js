@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey:"base_uom_id",
                 as:"baseUom"
             })
+            InventoryLots.belongsTo(models.PurchaseReceiptLines,{
+                foreignKey:"purchase_receipt_line_id",
+                as:"purchaseReceiptLine"
+            })
             // Add the production-batch association when its model is available.
         }
     }
@@ -31,11 +35,11 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true,
             },
 
-            organisation_id: {
+            organization_id: {
                 type: DataTypes.BIGINT,
                 allowNull: false,
                 references: {
-                    model: 'organisations',
+                    model: 'organizations',
                     key: 'id',
                 },
             },
@@ -149,7 +153,7 @@ module.exports = (sequelize, DataTypes) => {
             indexes: [
                 {
                     unique: true,
-                    fields: ['organisation_id', 'internal_lot_no'],
+                    fields: ['organization_id', 'internal_lot_no'],
                     name: 'inventory_lots_org_internal_lot_unique',
                 },
                 {

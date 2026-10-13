@@ -5,23 +5,15 @@ const {
 module.exports = (sequelize, DataTypes) => {
     class AdminRolePermissions extends Model {
         static associate(models) {
-            // AdminRolePermissions.belongsTo(models.AdminRoles, {
-            //     foreignKey: 'role_id',
-            //     as: 'role',
-            // });
+            AdminRolePermissions.belongsTo(models.AdminRoles, {
+                foreignKey: 'role_id',
+                as: 'role',
+            });
 
-            // AdminRolePermissions.belongsTo(models.AdminPermissions, {
-            //     foreignKey: 'permission_id',
-            //     as: 'permission',
-            // });
-            AdminRolePermissions.belongsTo(models.AdminRoles,{
-                foreignKey:'role_id',
-                as:'role'
-            })
             AdminRolePermissions.belongsTo(models.AdminPermissions, {
                 foreignKey: 'permission_id',
                 as: 'permission',
-            })
+            });
         }
     }
 

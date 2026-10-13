@@ -18,6 +18,8 @@ module.exports = {
                     model: 'organizations',
                     key: 'id',
                 },
+                onUpdate: 'CASCADE',
+                onDelete: 'RESTRICT',
             },
 
             item_id: {
@@ -27,6 +29,8 @@ module.exports = {
                     model: 'items',
                     key: 'id',
                 },
+                onUpdate: 'CASCADE',
+                onDelete: 'RESTRICT',
             },
 
             internal_lot_no: {
@@ -58,6 +62,8 @@ module.exports = {
                     model: 'purchase_receipt_lines',
                     key: 'id',
                 },
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL',
             },
 
             source_production_batch_id: {
@@ -103,6 +109,8 @@ module.exports = {
                     model: 'units',
                     key: 'id',
                 },
+                onUpdate: 'CASCADE',
+                onDelete: 'RESTRICT',
             },
 
             currency_code: {

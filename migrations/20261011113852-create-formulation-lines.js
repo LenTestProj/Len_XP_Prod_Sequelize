@@ -38,6 +38,17 @@ module.exports = {
             onDelete: 'RESTRICT',
         },
 
+        required_uom_id: {
+            type: Sequelize.BIGINT,
+            allowNull: true,
+            references: {
+            model: 'units',
+            key: 'id',
+            },
+            onUpdate: 'CASCADE',
+            onDelete: 'RESTRICT',
+        },
+
         created_at: {
             type: Sequelize.DATE,
             allowNull: false,

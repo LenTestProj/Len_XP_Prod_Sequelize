@@ -12,10 +12,10 @@ module.exports = (sequelize, DataTypes) => {
 
         FormulationVersions.belongsTo(models.Units, {
             foreignKey: 'output_uom_id',
-            as: 'outputUnit',
+            as: 'outputUom',
         });
 
-        FormulationVersions.belongsTo(models.AdminUsers, {
+        FormulationVersions.belongsTo(models.Users, {
             foreignKey: 'approved_by',
             as: 'approver',
         });
@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         FormulationVersions.hasMany(models.FormulationLines, {
             foreignKey: 'formulation_version_id',
             as: 'lines',
+            onDelete: 'CASCADE',
         });
         }
     }
@@ -104,6 +105,10 @@ module.exports = (sequelize, DataTypes) => {
             approved_by: {
                 type: DataTypes.BIGINT,
                 allowNull: true,
+                references: {
+                    model: 'users',
+                    key: 'id',
+                },
             },
 
             created_at: {

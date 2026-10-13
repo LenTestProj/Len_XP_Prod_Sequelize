@@ -5,7 +5,17 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class AdminPermissions extends Model {
     static associate(models) {
-      // Define associations here if needed
+      AdminPermissions.belongsToMany(models.AdminRoles, {
+        through: models.AdminRolePermissions,
+        foreignKey: 'permission_id',
+        otherKey: 'role_id',
+        as: 'roles',
+      });
+
+      AdminPermissions.hasMany(models.AdminRolePermissions, {
+        foreignKey: 'permission_id',
+        as: 'rolePermissions',
+      });
     }
   }
 

@@ -3,20 +3,50 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class Organisations extends Model {
+    class Organizations extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            Organisations.hasMany(models.Items, {
-                foreignKey: 'organisation_id',
+            Organizations.hasMany(models.Items, {
+                foreignKey: 'organization_id',
                 as: 'items',
+            });
+
+            Organizations.hasMany(models.Users, {
+                foreignKey: 'organization_id',
+                as: 'users',
+            });
+
+            Organizations.hasMany(models.Formulations, {
+                foreignKey: 'organization_id',
+                as: 'formulations',
+            });
+
+            Organizations.hasMany(models.PurchaseReceipts, {
+                foreignKey: 'organization_id',
+                as: 'purchaseReceipts',
+            });
+
+            Organizations.hasMany(models.InventoryLots, {
+                foreignKey: 'organization_id',
+                as: 'inventoryLots',
+            });
+
+            Organizations.hasMany(models.Vendors, {
+                foreignKey: 'organization_id',
+                as: 'vendors',
+            });
+
+            Organizations.hasMany(models.Warehouses, {
+                foreignKey: 'organization_id',
+                as: 'warehouses',
             });
         }
     }
-    Organisations.init({
+    Organizations.init({
         id: {
             type: DataTypes.BIGINT,
             autoIncrement: true,
@@ -47,7 +77,7 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        modelName: 'Organisations',
+        modelName: 'Organizations',
         tableName: 'organizations',
         timestamps: true,
         underscored: true,
@@ -64,5 +94,5 @@ module.exports = (sequelize, DataTypes) => {
             },
         ],
     });
-    return Organisations;
+    return Organizations;
 };

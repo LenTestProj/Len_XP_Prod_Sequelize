@@ -7,7 +7,15 @@ const {
 module.exports = (sequelize, DataTypes) => {
     class FinishedProducts extends Model {
         static associate(models) {
-            // Define associations here
+            FinishedProducts.belongsTo(models.Items, {
+                foreignKey: 'item_id',
+                as: 'item',
+            });
+
+            FinishedProducts.belongsTo(models.Units, {
+                foreignKey: 'net_content_uom_id',
+                as: 'netContentUom',
+            });
         }
     }
 

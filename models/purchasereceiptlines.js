@@ -25,9 +25,9 @@ module.exports = (sequelize, DataTypes) => {
                 as: 'baseUom',
             });
 
-            PurchaseReceiptLines.hasMany(models.InventoryLots, {
+            PurchaseReceiptLines.hasOne(models.InventoryLots, {
                 foreignKey: 'purchase_receipt_line_id',
-                as: 'inventoryLots',
+                as: 'inventoryLot',
             });
         }
     }

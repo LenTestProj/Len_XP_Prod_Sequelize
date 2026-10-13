@@ -10,7 +10,22 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      AdminRoles.hasMany(models.Users, {
+        foreignKey: 'role_id',
+        as: 'users',
+      });
+
+      AdminRoles.belongsToMany(models.AdminPermissions, {
+        through: models.AdminRolePermissions,
+        foreignKey: 'role_id',
+        otherKey: 'permission_id',
+        as: 'permissions',
+      });
+
+      AdminRoles.hasMany(models.AdminRolePermissions, {
+        foreignKey: 'role_id',
+        as: 'rolePermissions',
+      });
     }
   }
   AdminRoles.init({
@@ -20,6 +35,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'AdminRoles',
+    tableName: 'admin_roles',
+    timestamps: true,
+    underscored: true,
   });
   return AdminRoles;
 };

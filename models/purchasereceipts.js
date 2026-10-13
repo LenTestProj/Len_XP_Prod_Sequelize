@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
             PurchaseReceipts.hasMany(models.PurchaseReceiptLines, {
                 foreignKey: 'purchase_receipt_id',
                 as: 'lines',
+                onDelete: 'CASCADE',
             });
         }
     }

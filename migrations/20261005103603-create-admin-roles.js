@@ -27,11 +27,11 @@ module.exports = {
             allowNull: false,
             defaultValue: false
         },
-        createdAt: {
+        created_at: {
             allowNull: false,
             type: Sequelize.DATE
         },
-        updatedAt: {
+        updated_at: {
             allowNull: false,
             type: Sequelize.DATE
         }
@@ -52,6 +52,6 @@ module.exports = {
     ]);
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('AdminRoles');
+    await queryInterface.dropTable('admin_roles');
   }
 };

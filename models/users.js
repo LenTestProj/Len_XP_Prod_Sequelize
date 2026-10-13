@@ -3,13 +3,31 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-    class User extends Model {
+    class Users extends Model {
         static associate(models) {
-            // Optional: define associations here
+            Users.belongsTo(models.AdminRoles, {
+                foreignKey: 'role_id',
+                as: 'role',
+            });
+
+            Users.belongsTo(models.Organizations, {
+                foreignKey: 'organization_id',
+                as: 'organization',
+            });
+
+            Users.hasMany(models.AdminActivity, {
+                foreignKey: 'user_id',
+                as: 'activities',
+            });
+
+            Users.hasMany(models.FormulationVersions, {
+                foreignKey: 'approved_by',
+                as: 'approvedFormulationVersions',
+            });
         }
     }
 
-    User.init(
+    Users.init(
         {
             id: {
                 type: DataTypes.INTEGER,
@@ -95,12 +113,12 @@ module.exports = (sequelize, DataTypes) => {
         },
         {
             sequelize,
-            modelName: 'User',
+            modelName: 'Users',
             tableName: 'users',
             timestamps: true,
             underscored: true,
         }
     );
 
-    return User;
+    return Users;
 };
